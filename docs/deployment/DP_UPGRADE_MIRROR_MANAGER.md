@@ -151,8 +151,8 @@ for a worker password.
 
 Read-only:
 
-- Phase 2 artifacts: current pinned Phase 2 R2 release (`https://downloads.xdr.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261111-ntpsec-v2`)
-  - **Field-test candidate only:** this new immutable package includes the AELDEV-78336 NTPSEC fix, but real DP bring-up/NTP E2E is pending. Do not use for unapproved production rollout. The prior `validated-20260919` path remains unchanged in R2.
+- Phase 2 artifacts: current pinned Phase 2 R2 release (`https://downloads.xdr.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh`)
+  - **Field-test candidate only:** this immutable ACPS refresh (2026-11-17) contains the NTPSEC fix and 155 image-list entries (10 more tags than the previous 2026-11-11 candidate). Actual DP bring-up/NTP E2E is pending. Do not use for unapproved production rollout. Previous R2 release prefixes are being retired under explicit owner direction; existing Mirror Managers pinned to them must be updated before fetching artifacts.
   - The repo version on this candidate branch is required to download the new release; previously installed Mirror Manager releases remain pinned to the prior package until explicitly updated.
 - OS Core Source: Cloudflare R2 — configured by installer (FULL mode)
 
