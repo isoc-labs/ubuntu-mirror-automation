@@ -37,7 +37,7 @@ source "${ROOT}/scripts/lib/mirror_install_engine.sh"
 
 dp2_set_version 6.6.0
 
-[[ "${PHASE2_R2_MANIFEST_SHA256}" == "e70c8ab102a2c1a7564c6ad48bb836c57757e198895aab95abbecbb2ad6dc48c" ]] \
+[[ "${PHASE2_R2_MANIFEST_SHA256}" == "db9776136b6eee920f127788befd2d3f17f75ed176ca0f8a624d81991e964369" ]] \
   || fail "manifest hard-pin constant missing/wrong"
 [[ "${PHASE2_R2_MANIFEST_BYTES}" == "956" ]] \
   || fail "manifest bytes hard-pin missing/wrong"
@@ -61,7 +61,7 @@ pass "A: old ACPS final lacks R2 identity"
 cat >"$ENVF" <<EOF
 PHASE2_SOURCE=R2
 SOURCE_HOST=downloads.xdr.ooo
-SOURCE_PATH=/dp-os-upgrade/phase2/6.6.0/candidate-20261111-ntpsec-v2
+SOURCE_PATH=/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh
 PHASE2_R2_VALIDATED_RELEASE_ID=some-other-release
 PHASE2_R2_MANIFEST_SHA256=${PHASE2_R2_MANIFEST_SHA256}
 EOF
@@ -73,7 +73,7 @@ pass "B: wrong release id invalidates"
 cat >"$ENVF" <<EOF
 PHASE2_SOURCE=R2
 SOURCE_HOST=downloads.xdr.ooo
-SOURCE_PATH=/dp-os-upgrade/phase2/6.6.0/candidate-20261111-ntpsec-v2
+SOURCE_PATH=/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh
 PHASE2_R2_VALIDATED_RELEASE_ID=${PHASE2_R2_VALIDATED_RELEASE_ID}
 PHASE2_R2_MANIFEST_SHA256=0000000000000000000000000000000000000000000000000000000000000000
 EOF
@@ -91,7 +91,7 @@ grep -Fxq "PHASE2_R2_VALIDATED_RELEASE_ID=${PHASE2_R2_VALIDATED_RELEASE_ID}" "$E
 grep -Fxq "PHASE2_R2_MANIFEST_SHA256=${PHASE2_R2_MANIFEST_SHA256}" "$ENVF" \
   || fail "provenance missing manifest id"
 grep -Fxq 'SOURCE_HOST=downloads.xdr.ooo' "$ENVF" || fail "provenance missing host"
-pass "shared provenance emitter binds candidate-20261111-ntpsec-v2"
+pass "shared provenance emitter binds candidate-20261117-acps-refresh"
 
 # --- verified cache format 1 vs 2 ---
 CACHE="$(acps_cache_dir 6.6.0)"
@@ -269,7 +269,7 @@ set -e
   && pass "other host redirect blocked" \
   || fail "other host redirect should FAIL (rc=${rc} out=${out})"
 
-export MOCK_EFFECTIVE_URL="https://downloads.xdr.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261111-ntpsec-v2/manifest.sha256"
+export MOCK_EFFECTIVE_URL="https://downloads.xdr.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh/manifest.sha256"
 phase2_assert_r2_effective_url "https://downloads.xdr.ooo/x" "t" >/dev/null \
   || fail "same-host effective URL should PASS"
 pass "same-host redirect authority PASS"

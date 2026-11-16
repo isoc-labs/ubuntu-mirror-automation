@@ -23,11 +23,11 @@ ACPS_PRODUCTION_BASE_URL="https://acps.stellarcyber.ai/provision/aelladeb_py3"
 # Re-asserted unconditionally so env cannot redirect production downloads.
 # Must match scripts/lib/dp-phase2-common.sh.
 PHASE2_R2_PUBLIC_BASE_URL_CONSTANT="https://downloads.xdr.ooo"
-PHASE2_R2_VALIDATED_RELEASE_ID="candidate-20261111-ntpsec-v2"
-PHASE2_R2_OBJECT_PREFIX_CONSTANT="dp-os-upgrade/phase2/6.6.0/candidate-20261111-ntpsec-v2"
-PHASE2_R2_BASE_URL_CONSTANT="https://downloads.xdr.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261111-ntpsec-v2"
+PHASE2_R2_VALIDATED_RELEASE_ID="candidate-20261117-acps-refresh"
+PHASE2_R2_OBJECT_PREFIX_CONSTANT="dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh"
+PHASE2_R2_BASE_URL_CONSTANT="https://downloads.xdr.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh"
 # Keep in lockstep with scripts/lib/dp-phase2-common.sh (single production pin).
-PHASE2_R2_MANIFEST_SHA256="e70c8ab102a2c1a7564c6ad48bb836c57757e198895aab95abbecbb2ad6dc48c"
+PHASE2_R2_MANIFEST_SHA256="db9776136b6eee920f127788befd2d3f17f75ed176ca0f8a624d81991e964369"
 PHASE2_R2_MANIFEST_BYTES=956
 
 # Explicit hermetic-test boundary. Never document in GUI/help.
