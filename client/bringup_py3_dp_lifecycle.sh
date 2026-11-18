@@ -651,7 +651,7 @@ p2b_try_auto_restore_local_aella_shell() {
   else
     echo "PHASE2_AELLA_SHELL_RESTORE=MANUAL_REQUIRED reason=legacy_staging_missing_helper"
   fi
-  echo "PHASE2_WORKER_SHELL_RESTORE=MANUAL_PER_NODE command=sudo_$helper_--restore"
+  echo "PHASE2_WORKER_SHELL_RESTORE=MANUAL_PER_NODE command=sudo_${helper}_--restore"
 }
 
 main() {
