@@ -23,7 +23,8 @@ def check_static():
     assert main.index("  prepare_phase2_aella_shell_recovery\n") < main.index(
         "  normalize_phase2_aella_login_shell\n"
     ), "recording must precede normalization"
-    assert 'local helper="/usr/local/sbin/restore-aella-shell"' in STAGE
+    assert 'local helper="/root/restore-aella-shell.sh"' in STAGE
+    assert 'helper="/root/restore-aella-shell.sh"' in WRAP
     assert '[[ ! -L "$helper" ]]' in STAGE
     assert 'if ! grep -qx "DP_UPGRADE_COMPLETE=YES" <<<"$fields"; then' in WRAP
     assert 'p2b_record_cluster_validation "$RECORD_CLUSTER_VALIDATION" || exit $?' in WRAP
