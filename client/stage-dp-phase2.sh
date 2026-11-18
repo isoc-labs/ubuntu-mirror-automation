@@ -2129,7 +2129,7 @@ stage_main "$@"
     [[ "${saved[0]}" == "SHELL=$saved_shell" \
       && "${saved[1]}" == "UID=$saved_uid" \
       && "${saved[2]}" == "GID=$saved_gid" \
-      && "$saved_shell" == /usr/bin/aella_cli || "$saved_shell" == /usr/bin/bash ]] \
+      && ( "$saved_shell" == /usr/bin/aella_cli || "$saved_shell" == /usr/bin/bash ) ]] \
       || die "AELLA_SHELL_RESTORE=FAIL reason=receipt_format"
     [[ "$saved_uid" == "$uid" && "$saved_gid" == "$gid" ]] \
       || die "AELLA_SHELL_RESTORE=FAIL reason=receipt_identity_mismatch"
