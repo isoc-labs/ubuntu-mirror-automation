@@ -661,7 +661,7 @@ resolve_aella_ownership() {
 prepare_phase2_aella_shell_recovery() {
   local dir="/opt/aelladata/os-upgrade/offline"
   local state="$dir/aella-shell-restore.state"
-  local helper="/usr/local/sbin/restore-aella-shell"
+  local helper="/root/restore-aella-shell.sh"
   local record user pw uid gid gecos home original saved saved_user saved_uid saved_gid saved_shell extra
   local temp_state temp_helper
   record="$(getent passwd aella)" || die "AELLA_SHELL_RECOVERY=FAIL reason=no_account"
