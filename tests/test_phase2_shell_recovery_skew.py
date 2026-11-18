@@ -132,6 +132,8 @@ def check_restore():
         state.unlink()
         missing = run("--auto")
         assert missing.returncode != 0 and "unknown_original_shell" in missing.stderr
+        # Restore the fixture identity before testing explicit operator fallback.
+        passwd.write_text("aella:x:1000:27::/home/aella:/bin/bash\n")
         manual = run("--target", str(target))
         assert manual.returncode == 0 and "AELLA_SHELL_RESTORE=PASS" in manual.stdout
         print("PASS shell restore status, restore, idempotence, identity drift, override")
