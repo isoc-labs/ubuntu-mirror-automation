@@ -155,7 +155,7 @@ node** before it changes the `aella` login shell to `/bin/bash`.
 Its original shell is recorded at
 `/opt/aelladata/os-upgrade/offline/aella-shell-restore.state` (root only).
 The recovery script is installed at
-`/usr/local/sbin/restore-aella-shell`.
+`/root/restore-aella-shell.sh`.
 
 After the **current run** has an explicitly recorded
 `CLUSTER_VALIDATION=PASS`, completed required migration, and
@@ -164,8 +164,8 @@ Worker shells are **not** changed remotely: from each Worker, after the full
 cluster upgrade is confirmed, run:
 
 ```bash
-sudo /usr/local/sbin/restore-aella-shell --status
-sudo /usr/local/sbin/restore-aella-shell --restore
+sudo /root/restore-aella-shell.sh --status
+sudo /root/restore-aella-shell.sh --restore
 getent passwd aella | cut -d: -f1,7
 ```
 
