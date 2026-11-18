@@ -631,7 +631,7 @@ start_or_monitor() {
 p2b_try_auto_restore_local_aella_shell() {
   # Explicit operator PASS and coherent current-run completion are required.
   # Worker shells are never remotely changed by this controller.
-  local bp=NO fields="" helper="/usr/local/sbin/restore-aella-shell"
+  local bp=NO fields="" helper="/root/restore-aella-shell.sh"
   declare -F p2b_emit_completion_semantics >/dev/null 2>&1 || return 0
   p2b_status_snapshot || true
   if p2b_current_run_completion_coherent; then bp=YES; fi
