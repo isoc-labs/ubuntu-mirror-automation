@@ -661,7 +661,7 @@ resolve_aella_ownership() {
 prepare_phase2_aella_shell_recovery() {
   local dir="/opt/aelladata/os-upgrade/offline"
   local state="$dir/aella-shell-restore.state"
-  local helper="/home/aella/restore-aella-shell.sh"
+  local helper="/usr/local/sbin/restore-aella-shell"
   local record user pw uid gid gecos home original saved saved_user saved_uid saved_gid saved_shell extra
   local temp_state temp_helper
   record="$(getent passwd aella)" || die "AELLA_SHELL_RECOVERY=FAIL reason=no_account"
@@ -790,6 +790,7 @@ fi
 echo "AELLA_SHELL_RESTORE=PASS from=$current to=$target"
 DP_SHELL_RESTORE_EMBEDDED_SCRIPT
   bash -n "$temp_helper" || die "AELLA_SHELL_RECOVERY=FAIL reason=helper_syntax"
+  [[ ! -L "$helper" ]] || die "AELLA_SHELL_RECOVERY=FAIL reason=helper_symlink"
   install -o root -g root -m 0755 "$temp_helper" "$helper" ||
     die "AELLA_SHELL_RECOVERY=FAIL reason=install_helper"
   rm -f "$temp_helper"
@@ -1536,7 +1537,7 @@ EOF
   else
     cat <<EOF
 NEXT_COMMAND=NOT_READY
-NEXT_COMMAND_NOTE=Fix local clock readiness (skew/unverifiable time) before bringup; staging does not execute bringup; missing internal NTP alone is not a hard gate
+NEXT_COMMAND_NOTE=Unverifiable time may still block bringup. Measured clock skew is warning-only and does not block Phase 2; staging does not execute bringup
 EOF
   fi
 }
