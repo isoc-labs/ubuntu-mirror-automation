@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="README.md">English</a> · <strong>한국어</strong> · <a href="https://dpos.xdr.ooo/">사용자/운영 가이드</a>
+  <a href="README.md">English</a> · <strong>한국어</strong> · <a href="https://dpos.isoc.ooo/">사용자/운영 가이드</a>
 </p>
 
 <p align="center">
@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <strong>제품/운영 가이드:</strong> <a href="https://dpos.xdr.ooo/">dpos.xdr.ooo</a>
+  <strong>제품/운영 가이드:</strong> <a href="https://dpos.isoc.ooo/">dpos.isoc.ooo</a>
 </p>
 
 ---
@@ -103,7 +103,7 @@ Mirror Server 요구사항:
 sudo apt-get update
 sudo apt-get install -y git
 
-git clone https://github.com/xdr-labs/ubuntu-mirror-automation.git
+git clone https://github.com/isoc-labs/ubuntu-mirror-automation.git
 cd ubuntu-mirror-automation
 sudo ./install.sh
 ```
@@ -129,7 +129,7 @@ RECOVERY_METHOD=HYPERVISOR_SNAPSHOT
 
 ## 상세 문서
 
-- **사용자/운영 가이드:** https://dpos.xdr.ooo/
+- **사용자/운영 가이드:** https://dpos.isoc.ooo/
 - [DP Upgrade Mirror Manager](docs/deployment/DP_UPGRADE_MIRROR_MANAGER.md)
 - [OS Core Artifact Format](docs/deployment/OS_CORE_ARTIFACT_FORMAT.md)
 - [Testing Guide](docs/development/testing.md)

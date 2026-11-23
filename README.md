@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <strong>English</strong> · <a href="README.ko.md">한국어</a> · <a href="https://dpos.xdr.ooo/">User & Operations Guide</a>
+  <strong>English</strong> · <a href="README.ko.md">한국어</a> · <a href="https://dpos.isoc.ooo/">User & Operations Guide</a>
 </p>
 
 <p align="center">
@@ -95,7 +95,7 @@ The current artifact set requires substantial temporary build/download headroom.
 sudo apt-get update
 sudo apt-get install -y git
 
-git clone https://github.com/xdr-labs/ubuntu-mirror-automation.git
+git clone https://github.com/isoc-labs/ubuntu-mirror-automation.git
 cd ubuntu-mirror-automation
 sudo ./install.sh
 ```
@@ -170,7 +170,7 @@ Continue from the first incomplete step. Do not start a second copy of a still-r
 
 The maintained operator/runbook documentation is:
 
-**https://dpos.xdr.ooo/**
+**https://dpos.isoc.ooo/**
 
 Use it for:
 
