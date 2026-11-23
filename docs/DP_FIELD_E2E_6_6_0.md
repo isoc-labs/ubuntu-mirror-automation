@@ -152,6 +152,12 @@ health, Worker participation and no paused state to match the test plan.
 
 Phase 2 stages an independent, root-owned recovery command on **each staged
 node** before it changes the `aella` login shell to `/bin/bash`.
+For Full OS Upgrade, Phase 1 may already have changed the account to bash:
+in that case Phase 2 reads the earliest trusted, matching pre-hop
+`/opt/aelladata/os-upgrade/offline/backups/<timestamp>/passwd/shells.txt`
+snapshot to recover the original shell. The snapshot must match the current
+account UID/GID and pass basic ownership and permission checks; otherwise
+Phase 2 records the current shell rather than guessing.
 Its original shell is recorded at
 `/opt/aelladata/os-upgrade/offline/aella-shell-restore.state` (root only).
 The recovery script is installed at
