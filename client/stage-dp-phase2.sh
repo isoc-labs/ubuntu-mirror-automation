@@ -656,6 +656,45 @@ resolve_aella_ownership() {
 }
 
 
+# Phase 1 changes aella to bash, but persists an account snapshot BEFORE
+# each OS hop under backups/UTC-stamp/passwd/shells.txt. Use the oldest
+# verified snapshot if Phase 2 sees bash. The snapshot supplies UID/GID too;
+# we must never restore an unrelated user's or untrusted backup's shell.
+dp2_phase1_original_aella_shell() {
+  local expected_uid="$1" expected_gid="$2"
+  local base="/opt/aelladata/os-upgrade/offline/backups"
+  local snap parent stamp record user pw uid gid gecos home shell owner mode count=0
+  [[ -d "$base" && ! -L "$base" ]] || return 1
+  owner="$(stat -c %u "$base" 2>/dev/null || true)"
+  [[ "$owner" == 0 ]] || return 1
+  for snap in "$base"/20??????T??????Z/passwd/shells.txt; do
+    [[ -f "$snap" ]] || continue
+    count=$((count+1))
+    if [[ "$count" -gt 128 ]]; then
+      log "WARNING: AELLA_SHELL_PHASE1_EVIDENCE=INVALID reason=too_many_backups"
+      return 1
+    fi
+    parent="$(dirname "$(dirname "$snap")")"
+    stamp="$(basename "$parent")"
+    [[ "$stamp" =~ ^20[0-9]{6}T[0-9]{6}Z$ ]] || continue
+    [[ ! -L "$parent" && ! -L "$parent/passwd" && ! -L "$snap" ]] || continue
+    owner="$(stat -c %u "$snap" 2>/dev/null || true)"
+    mode="$(stat -c %a "$snap" 2>/dev/null || true)"
+    [[ "$owner" == 0 && "$mode" =~ ^[0-7]{3,4}$ ]] || continue
+    if (( (8#$mode & 022) != 0 )); then continue; fi
+    record="$(grep '^aella:' "$snap" 2>/dev/null || true)"
+    [[ -n "$record" && "$record" != *$'\n'* ]] || continue
+    IFS=: read -r user pw uid gid gecos home shell <<<"$record"
+    [[ "$user" == aella && "$uid" == "$expected_uid" && "$gid" == "$expected_gid" ]] || continue
+    case "$shell" in
+      /usr/bin/aella_cli|/usr/bin/bash|/bin/bash)
+        printf '%s' "$shell"
+        return 0 ;;
+    esac
+  done
+  return 1
+}
+
 # Durable local recovery script is installed before the login shell is changed.
 # Re-staging never replaces the recorded original shell.
 prepare_phase2_aella_shell_recovery() {
@@ -687,9 +726,22 @@ prepare_phase2_aella_shell_recovery() {
       *) die "AELLA_SHELL_RECOVERY=FAIL reason=unknown_recorded_shell" ;;
     esac
   else
+    # Phase 1 may already have normalized the login shell to bash. Recover
+    # the original from its trusted pre-hop passwd snapshot if available.
+    saved_shell="$original"
+    if [[ "$original" == /bin/bash || "$original" == /usr/bin/bash ]]; then
+      local pre_hop_shell=""
+      pre_hop_shell="$(dp2_phase1_original_aella_shell "$uid" "$gid" || true)"
+      if [[ -n "$pre_hop_shell" ]]; then
+        saved_shell="$pre_hop_shell"
+        log "PHASE2_AELLA_SHELL_ORIGIN=PHASE1_BACKUP restored_target=$saved_shell"
+      else
+        log "PHASE2_AELLA_SHELL_ORIGIN=PHASE2_CURRENT retained=$saved_shell"
+      fi
+    fi
     temp_state="$(mktemp "$dir/.aella-shell-state.XXXXXX")" ||
       die "AELLA_SHELL_RECOVERY=FAIL reason=mktemp_state"
-    printf 'aella:%s:%s:%s\n' "$uid" "$gid" "$original" >"$temp_state"
+    printf 'aella:%s:%s:%s\n' "$uid" "$gid" "$saved_shell" >"$temp_state"
     chmod 0600 "$temp_state"
     chown root:root "$temp_state"
     if [[ -e "$state" || -L "$state" ]]; then
