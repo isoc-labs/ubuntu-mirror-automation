@@ -64,6 +64,7 @@ run_step "phase2_detached_handoff_identity" bash tests/test_phase2_detached_hand
 run_step "phase2_legacy_product_transition" bash tests/test_phase2_legacy_product_transition.sh
 run_step "phase2_aella_login_shell" bash tests/test_phase2_login_shell_normalization.sh
 run_step "phase2_shell_recovery_skew" python3 tests/test_phase2_shell_recovery_skew.py
+run_step "phase2_phase1_shell_provenance" python3 tests/test_phase2_phase1_shell_provenance.py
 run_step "phase2_legacy_stage_contract" bash tests/test_phase2_legacy_stage_contract.sh
 run_step "phase2_product_replacement" python3 tests/test_phase2_product_replacement.py
 run_step "phase2_product_transition_hook" bash tests/test_phase2_product_transition_hook.sh
