@@ -85,8 +85,9 @@ fi
     print("PASS pre-hop shell snapshot permissions enforced")
 
     snap1.unlink()
-    snap1.symlink_to(snap2)
-    snap2.write_text("aella:x:1000:27:aella:/home/aella:/usr/bin/aella_cli\n")
+    outside = root / "outside-record.txt"
+    outside.write_text("aella:x:1000:27:aella:/home/aella:/usr/bin/aella_cli\n")
+    snap1.symlink_to(outside)
     assert run() == "RESULT=NONE", "symlink evidence must not be accepted"
     print("PASS pre-hop shell symlink evidence rejected")
 
