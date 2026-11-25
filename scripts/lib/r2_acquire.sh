@@ -239,7 +239,7 @@ r2_download_package() {
     )"
     scheme="$(printf '%s' "$effective" | sed -E 's#^([a-zA-Z][a-zA-Z0-9+.-]*)://.*#\1#')"
     host="$(printf '%s' "$effective" | sed -E 's#^[a-zA-Z][a-zA-Z0-9+.-]*://##' | cut -d/ -f1 | cut -d@ -f2 | cut -d: -f1)"
-    if [[ "${scheme,,}" != "https" || "$host" != "downloads.xdr.ooo" ]]; then
+    if [[ "${scheme,,}" != "https" || "$host" != "downloads.isoc.ooo" ]]; then
       mm_die "R2_REDIRECT_AUTHORITY=FAIL reason=unexpected_host scheme=${scheme:-MISSING} host=${host:-MISSING}"
     fi
     mm_ok "R2_EFFECTIVE_HOST=${host}"

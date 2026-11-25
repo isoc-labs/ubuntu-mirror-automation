@@ -9,10 +9,10 @@ DP_PHASE2_REQUIRED_FILES=()
 # Immutable production Phase 2 download source (Cloudflare R2 public HTTPS).
 # Never use a mutable "latest" prefix. Not env-overridable in production.
 # Hermetic tests redirect via DP_PHASE2_SOURCE_BASE, never by replacing these.
-PHASE2_R2_PUBLIC_BASE_URL_CONSTANT="https://downloads.xdr.ooo"
+PHASE2_R2_PUBLIC_BASE_URL_CONSTANT="https://downloads.isoc.ooo"
 PHASE2_R2_VALIDATED_RELEASE_ID="candidate-20261117-acps-refresh"
 PHASE2_R2_OBJECT_PREFIX_CONSTANT="dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh"
-PHASE2_R2_BASE_URL_CONSTANT="https://downloads.xdr.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh"
+PHASE2_R2_BASE_URL_CONSTANT="https://downloads.isoc.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh"
 # Production object identity (additional to vendor .sha1/.sha256 sidecars).
 PHASE2_R2_BRINGUP_SHA256="426d8cdc2763642e9e598efe9c80c70983c019025b99abcbac163c09be73be16"
 PHASE2_R2_IMAGES_SHA256="bcb284a12987cb88f954bfb233694b3e2abf6724dce55d2eaf11b41dc437647b"
@@ -20,7 +20,7 @@ PHASE2_R2_IMAGES_BYTES=34653698048
 PHASE2_R2_MANIFEST_NAME="manifest.sha256"
 PHASE2_R2_MANIFEST_SHA256="db9776136b6eee920f127788befd2d3f17f75ed176ca0f8a624d81991e964369"
 PHASE2_R2_MANIFEST_BYTES=956
-PHASE2_R2_PRODUCTION_SOURCE_HOST="downloads.xdr.ooo"
+PHASE2_R2_PRODUCTION_SOURCE_HOST="downloads.isoc.ooo"
 
 # Shared production provenance values for release.env / .VERIFIED writers.
 # Keep a single definition so Mirror Manager and download-dp-phase2 cannot drift.
@@ -94,7 +94,7 @@ phase2_release_env_r2_identity_reason() {
   return 0
 }
 
-# Production downloads must remain on downloads.xdr.ooo over HTTPS after -L.
+# Production downloads must remain on downloads.isoc.ooo over HTTPS after -L.
 # Hermetic fixtures may use localhost/test HTTP only behind MM_HERMETIC_TEST_MODE.
 phase2_assert_r2_effective_url() {
   local url="$1"

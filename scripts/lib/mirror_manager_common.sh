@@ -61,7 +61,7 @@ ACPS_BASE_URL_FIXED="${ACPS_PRODUCTION_BASE_URL}"
 # Production always binds OS_CORE_R2_URL to OS_CORE_R2_URL_CONSTANT.
 # Hermetic tests may override via OS_CORE_R2_URL=http://127.0.0.1:<port>/pkg.tar
 # shellcheck disable=SC2034
-OS_CORE_R2_URL_CONSTANT="https://downloads.xdr.ooo/ubuntu-os-core/ubuntu-os-core-xenial-to-noble.tar"
+OS_CORE_R2_URL_CONSTANT="https://downloads.isoc.ooo/ubuntu-os-core/ubuntu-os-core-xenial-to-noble.tar"
 
 # Bind Phase 1 download URL authority. Env overrides are hermetic-only.
 mm_bind_os_core_r2_url() {

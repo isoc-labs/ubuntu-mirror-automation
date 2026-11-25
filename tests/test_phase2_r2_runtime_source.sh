@@ -8,7 +8,7 @@ FAIL=0
 pass() { echo "PASS: $*"; }
 fail() { echo "FAIL: $*"; FAIL=1; }
 
-R2_BASE='https://downloads.xdr.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh'
+R2_BASE='https://downloads.isoc.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh'
 
 # R2 checksums and SHA1 sidecars are independent of executable provenance.
 # Fail closed if a new immutable R2 release was pinned without prior review.
@@ -22,7 +22,7 @@ else
   fail "immutable R2 bringup SHA256 absent from executable provenance allowlist"
 fi
 
-OS_CORE='https://downloads.xdr.ooo/ubuntu-os-core/ubuntu-os-core-xenial-to-noble.tar'
+OS_CORE='https://downloads.isoc.ooo/ubuntu-os-core/ubuntu-os-core-xenial-to-noble.tar'
 RUNTIME_SCRIPTS=(
   "${ROOT}/scripts/download-dp-phase2.sh"
   "${ROOT}/scripts/lib/acps_auth.sh"
@@ -369,7 +369,7 @@ set -e
 # ---------------------------------------------------------------------------
 grep -q "OS_CORE_R2_URL_CONSTANT=\"${OS_CORE}\"" \
   "${ROOT}/scripts/lib/mirror_manager_common.sh" \
-  && pass "Phase 1 OS Core R2 URL is downloads.xdr.ooo" \
+  && pass "Phase 1 OS Core R2 URL is downloads.isoc.ooo" \
   || fail "Phase 1 OS Core R2 URL changed"
 
 # Retired R2 hostname must not remain in production runtime or as a fallback.
@@ -384,10 +384,10 @@ done
 [[ "$old_domain_hits" -eq 0 ]] \
   && pass "production runtime has no xdrsolutions.uk reference" \
   || true
-grep -q 'https://downloads.xdr.ooo/' "${ROOT}/lib/bootstrap.sh" \
-  && grep -q 'OUTBOUND_HTTPS=PASS downloads.xdr.ooo' "${ROOT}/lib/bootstrap.sh" \
+grep -q 'https://downloads.isoc.ooo/' "${ROOT}/lib/bootstrap.sh" \
+  && grep -q 'OUTBOUND_HTTPS=PASS downloads.isoc.ooo' "${ROOT}/lib/bootstrap.sh" \
   && ! grep -q 'xdrsolutions.uk' "${ROOT}/lib/bootstrap.sh" \
-  && pass "bootstrap outbound HTTPS checks downloads.xdr.ooo only" \
+  && pass "bootstrap outbound HTTPS checks downloads.isoc.ooo only" \
   || fail "bootstrap still depends on xdrsolutions.uk"
 ! grep -nE 'xdrsolutions\.uk|xdrsolutions\.uk/' \
   "${ROOT}/scripts/lib/acps_auth.sh" \

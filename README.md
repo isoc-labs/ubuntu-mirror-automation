@@ -85,7 +85,7 @@ Use a clean **Ubuntu 24.04 LTS amd64** host.
 | Disk | 100 GB for the current artifact set |
 | Network | Stable IPv4 reachable by DP hosts |
 | DP → Mirror | TCP 80 |
-| Mirror outbound | HTTPS to GitHub, Ubuntu package sources, and `downloads.xdr.ooo` |
+| Mirror outbound | HTTPS to GitHub, Ubuntu package sources, and `downloads.isoc.ooo` |
 
 The current artifact set requires substantial temporary build/download headroom. The application performs free-space preflight checks before large operations.
 
