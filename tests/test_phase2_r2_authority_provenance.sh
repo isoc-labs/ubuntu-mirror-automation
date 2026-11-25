@@ -60,7 +60,7 @@ pass "A: old ACPS final lacks R2 identity"
 
 cat >"$ENVF" <<EOF
 PHASE2_SOURCE=R2
-SOURCE_HOST=downloads.xdr.ooo
+SOURCE_HOST=downloads.isoc.ooo
 SOURCE_PATH=/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh
 PHASE2_R2_VALIDATED_RELEASE_ID=some-other-release
 PHASE2_R2_MANIFEST_SHA256=${PHASE2_R2_MANIFEST_SHA256}
@@ -72,7 +72,7 @@ pass "B: wrong release id invalidates"
 
 cat >"$ENVF" <<EOF
 PHASE2_SOURCE=R2
-SOURCE_HOST=downloads.xdr.ooo
+SOURCE_HOST=downloads.isoc.ooo
 SOURCE_PATH=/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh
 PHASE2_R2_VALIDATED_RELEASE_ID=${PHASE2_R2_VALIDATED_RELEASE_ID}
 PHASE2_R2_MANIFEST_SHA256=0000000000000000000000000000000000000000000000000000000000000000
@@ -90,7 +90,7 @@ grep -Fxq "PHASE2_R2_VALIDATED_RELEASE_ID=${PHASE2_R2_VALIDATED_RELEASE_ID}" "$E
   || fail "provenance missing release id"
 grep -Fxq "PHASE2_R2_MANIFEST_SHA256=${PHASE2_R2_MANIFEST_SHA256}" "$ENVF" \
   || fail "provenance missing manifest id"
-grep -Fxq 'SOURCE_HOST=downloads.xdr.ooo' "$ENVF" || fail "provenance missing host"
+grep -Fxq 'SOURCE_HOST=downloads.isoc.ooo' "$ENVF" || fail "provenance missing host"
 pass "shared provenance emitter binds candidate-20261117-acps-refresh"
 
 # --- verified cache format 1 vs 2 ---
@@ -231,7 +231,7 @@ cat >"${MOCK_BIN}/curl" <<'EOF'
 # Emit a configured effective URL for -w '%{url_effective}' probes.
 for a in "$@"; do
   if [[ "$a" == "%{url_effective}" || "$a" == *"url_effective"* ]]; then
-    printf '%s' "${MOCK_EFFECTIVE_URL:-https://downloads.xdr.ooo/ok}"
+    printf '%s' "${MOCK_EFFECTIVE_URL:-https://downloads.isoc.ooo/ok}"
     exit 0
   fi
 done
@@ -244,7 +244,7 @@ export PATH="${MOCK_BIN}:${PATH}"
 export MM_HERMETIC_TEST_MODE=0
 export MOCK_EFFECTIVE_URL="https://acps.stellarcyber.ai/provision/aelladeb_py3/x"
 set +e
-out="$(phase2_assert_r2_effective_url "https://downloads.xdr.ooo/x" "t" 2>&1)"
+out="$(phase2_assert_r2_effective_url "https://downloads.isoc.ooo/x" "t" 2>&1)"
 rc=$?
 set -e
 [[ "$rc" -ne 0 ]] && printf '%s' "$out" | grep -q 'R2_REDIRECT_AUTHORITY=FAIL' \
@@ -253,7 +253,7 @@ set -e
 
 export MOCK_EFFECTIVE_URL="https://xdrsolutions.uk/ubuntu-os-core/x"
 set +e
-out="$(phase2_assert_r2_effective_url "https://downloads.xdr.ooo/x" "t" 2>&1)"
+out="$(phase2_assert_r2_effective_url "https://downloads.isoc.ooo/x" "t" 2>&1)"
 rc=$?
 set -e
 [[ "$rc" -ne 0 ]] && printf '%s' "$out" | grep -q 'R2_REDIRECT_AUTHORITY=FAIL' \
@@ -262,15 +262,15 @@ set -e
 
 export MOCK_EFFECTIVE_URL="https://evil.example/steal"
 set +e
-out="$(phase2_assert_r2_effective_url "https://downloads.xdr.ooo/x" "t" 2>&1)"
+out="$(phase2_assert_r2_effective_url "https://downloads.isoc.ooo/x" "t" 2>&1)"
 rc=$?
 set -e
 [[ "$rc" -ne 0 ]] && printf '%s' "$out" | grep -q 'R2_REDIRECT_AUTHORITY=FAIL' \
   && pass "other host redirect blocked" \
   || fail "other host redirect should FAIL (rc=${rc} out=${out})"
 
-export MOCK_EFFECTIVE_URL="https://downloads.xdr.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh/manifest.sha256"
-phase2_assert_r2_effective_url "https://downloads.xdr.ooo/x" "t" >/dev/null \
+export MOCK_EFFECTIVE_URL="https://downloads.isoc.ooo/dp-os-upgrade/phase2/6.6.0/candidate-20261117-acps-refresh/manifest.sha256"
+phase2_assert_r2_effective_url "https://downloads.isoc.ooo/x" "t" >/dev/null \
   || fail "same-host effective URL should PASS"
 pass "same-host redirect authority PASS"
 

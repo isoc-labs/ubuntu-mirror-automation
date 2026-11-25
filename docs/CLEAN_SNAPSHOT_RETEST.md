@@ -209,7 +209,7 @@ Menu **1 Configuration**:
 
 **Failure:** Mirror IP interface validation FAIL → fix networking or choose the correct host IP.
 
-**Stop if:** R2 connection test fails. Do not continue to Download and Prepare until `downloads.xdr.ooo` is reachable.
+**Stop if:** R2 connection test fails. Do not continue to Download and Prepare until `downloads.isoc.ooo` is reachable.
 
 ---
 
